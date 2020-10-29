@@ -445,18 +445,18 @@ class LineDetector:
 #         #plt.imshow(img)
 #         #plt.show()
 #
-#         print('yay ' + i)
+#         print('frame ' + i)
 #
 
 
-kek = False
+flag = False
 linedetector = LineDetector(use_probability_filter=False)
 for i in os.listdir('newData2'):
     ans = i.rfind('.')
     ans = i[:ans] + 'withAllFilters' + i[ans:]
     img = cv2.imread('newData2\\' + i)
-    if (not kek):
-        kek = True
+    if (not flag):
+        flag = True
         #cv2.imwrite('newResult\\gray.jpg', cv2.cvtColor(linedetector._make_undistorted_image(img), cv2.COLOR_BGR2GRAY))
         #ret, threshold_image = cv2.threshold(cv2.cvtColor(linedetector._make_undistorted_image(img), cv2.COLOR_BGR2GRAY), 150, 255, 0)
         ret, threshold_image = cv2.threshold(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), 110, 255, 0)
@@ -471,7 +471,7 @@ for i in os.listdir('newData2'):
     #plt.imshow(img)
     #plt.show()
     print(i, ans)
-# viewImage(img, 'kek')
+# viewImage(img, 'flag')
 # plt.imshow(img)
 
 

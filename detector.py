@@ -392,62 +392,6 @@ class LineDetector:
 
         return new_img, dashline, result
 
-# def job(kek):
-#     photos = kek[1]
-#     folder = kek[0]
-#     for i in photos:
-#         ans = i.rfind('.')
-#         ans = i[:ans] + 'edited_3' + i[ans:]
-#         img = cv2.imread(folder + '\\' + i)
-#         img, _ = detect_dashline(img)
-#         cv2.imwrite('NewResult\\' + ans, img)
-#         print('yay ' + i)
-
-
-# a = input('video если флексим видео: ')
-# if (a == 'video'):
-#     for i in os.listdir('videos'):
-#         if (i == 'test2.mp4'):
-#             continue
-#         video = cv2.VideoCapture('videos\\' + i)
-#         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-#         ans = i.rfind('.')
-#         ans = i[:ans] + '_edited' + i[ans:]
-#         out = cv2.VideoWriter('result_videos\\' + ans, fourcc, 30.0, (int(video.get(3)), int(video.get(4))))
-#         cnt = 0
-#         lastDashline = []
-#         while video.isOpened():
-#             ret, img = video.read()
-#             if ret:
-#                 # alpha = (1 - (MINPIXEL + 10) / MAXPIXEL) / (len(img) * PARTOFINTEREST)
-#                 img, lastDashline = detect_dashline(img, lastDashline[:])
-#                 #img = draw_size_circles(img)
-#                 out.write(img)
-#                 # if 0xFF == ord('q'):
-#                 #     break
-#             else:
-#                 break
-#             print('yay', cnt)
-#             cnt += 1
-#         out.release()
-#         video.release()
-# else:
-#     lastDashline = []
-#     for i in os.listdir('newData'):
-#         ans = i.rfind('.')
-#         ans = i[:ans] + 'probability_filter_ON' + i[ans:]
-#         img = cv2.imread('newData\\' + i)
-#         img = make_undistorted_image(img)
-#         img, lastDashline = detect_dashline(img, lastDashline[:])
-#         #img = draw_size_circles(img)
-#         #img = drawNearRectangles(img, lastDashline)
-#         cv2.imwrite('newResult\\' + ans, img)
-#         #plt.imshow(img)
-#         #plt.show()
-#
-#         print('frame ' + i)
-#
-
 
 flag = False
 linedetector = LineDetector(use_probability_filter=False)
@@ -457,21 +401,13 @@ for i in os.listdir('newData2'):
     img = cv2.imread('newData2\\' + i)
     if (not flag):
         flag = True
-        #cv2.imwrite('newResult\\gray.jpg', cv2.cvtColor(linedetector._make_undistorted_image(img), cv2.COLOR_BGR2GRAY))
-        #ret, threshold_image = cv2.threshold(cv2.cvtColor(linedetector._make_undistorted_image(img), cv2.COLOR_BGR2GRAY), 150, 255, 0)
         ret, threshold_image = cv2.threshold(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), 110, 255, 0)
-        #cv2.imwrite('newResult\\bw.jpg', threshold_image)
     img, lastDashline, result = linedetector.formated_answer(img)
     for a in result:
         cv2.line(img, (int(a[0][0]), int(a[0][1])), (int(a[1][0]), int(a[1][1])), (0, 255, 0), thickness= 2)
 
-    #img = draw_size_circles(img)
-    #img = drawNearRectangles(img, lastDashline)
     cv2.imwrite('newResult2\\' + ans, img)
-    #plt.imshow(img)
-    #plt.show()
     print(i, ans)
-# viewImage(img, 'flag')
-# plt.imshow(img)
+
 
 
